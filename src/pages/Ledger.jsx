@@ -189,17 +189,34 @@ const Ledger = () => {
             } else {
                 const response = await transactionAPI.create(formData);
                 transactionId = response.data._id;
-                setSuccess('Transaction added successfully');
+                // Don't set success yet if we have images
+                if (images.length === 0) {
+                    setSuccess('Transaction added successfully');
+                }
             }
 
             // Upload receipts if any
             if (images.length > 0) {
-                const formDataUpload = new FormData();
-                formDataUpload.append('transactionId', transactionId);
-                images.forEach((image) => {
-                    formDataUpload.append('images', image);
-                });
-                await receiptAPI.upload(formDataUpload);
+                try {
+                    const formDataUpload = new FormData();
+                    formDataUpload.append('transactionId', transactionId);
+                    images.forEach((image) => {
+                        formDataUpload.append('receipts', image); // Changed 'images' to 'receipts' to match backend
+                    });
+
+                    const uploadResponse = await receiptAPI.upload(formDataUpload);
+
+                    if (editMode) {
+                        setSuccess('Transaction and receipts updated successfully');
+                    } else {
+                        setSuccess('Transaction and receipts added successfully');
+                    }
+                } catch (uploadError) {
+                    console.error('Error uploading receipts:', uploadError);
+                    // Transaction was saved, but receipts failed
+                    setSuccess('Transaction saved, but failed to upload receipts. Please try adding them later.');
+                    // Don't set main error, as transaction was saved
+                }
             }
 
             handleCloseDialog();
