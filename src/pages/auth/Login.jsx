@@ -154,6 +154,7 @@ const Login = () => {
                                 sx={{
                                     '& .MuiOutlinedInput-root': {
                                         borderRadius: 2,
+                                        backgroundColor: '#F8FAFC',
                                         '& fieldset': { borderColor: '#E2E8F0' },
                                         '&:hover fieldset': { borderColor: '#CBD5E1' },
                                         '&.Mui-focused fieldset': {
@@ -194,6 +195,7 @@ const Login = () => {
                                 sx={{
                                     '& .MuiOutlinedInput-root': {
                                         borderRadius: 2,
+                                        backgroundColor: '#F8FAFC',
                                         '& fieldset': { borderColor: '#E2E8F0' },
                                         '&:hover fieldset': { borderColor: '#CBD5E1' },
                                         '&.Mui-focused fieldset': {
