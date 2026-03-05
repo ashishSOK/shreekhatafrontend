@@ -7,6 +7,7 @@ import {
     Typography,
     Skeleton,
     useTheme,
+    useMediaQuery,
 } from '@mui/material';
 import {
     TrendingUp,
@@ -20,108 +21,113 @@ import { formatCurrency } from '../utils/formatters';
 import { motion } from 'framer-motion';
 import PageLoader from '../components/common/PageLoader';
 
-const StatCard = memo(({ title, value, icon, color, trend, delay = 0 }) => (
-    <motion.div
-        initial={{ opacity: 0, y: 30, rotateX: -15 }}
-        animate={{ opacity: 1, y: 0, rotateX: 0 }}
-        transition={{
-            duration: 0.6,
-            delay,
-            type: 'spring',
-            stiffness: 100
-        }}
-        style={{ height: '100%' }}
-    >
-        <Card
-            sx={{
-                height: '100%',
-                background: `linear-gradient(135deg, ${color}20 0%, ${color}08 100%)`,
-                backdropFilter: 'blur(20px)',
-                border: `1px solid ${color}40`,
-                borderRadius: 3,
-                transformStyle: 'preserve-3d',
-                transform: 'perspective(1000px) rotateX(2deg) rotateY(2deg) translateZ(10px)',
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                position: 'relative',
-                overflow: 'hidden',
-                boxShadow: `0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px ${color}30`,
-                '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: `radial-gradient(circle at top right, ${color}15, transparent 70%)`,
-                    pointerEvents: 'none',
-                },
-                '&:hover': {
-                    transform: 'perspective(1000px) rotateX(-5deg) rotateY(-5deg) translateZ(30px) scale(1.02)',
-                    boxShadow: `0 20px 60px rgba(0, 0, 0, 0.4), 0 8px 24px ${color}50`,
-                    border: `1px solid ${color}60`,
-                },
+const StatCard = memo(({ title, value, icon, color, trend, delay = 0 }) => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    return (
+        <motion.div
+            initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 30, rotateX: -15 }}
+            animate={isMobile ? { opacity: 1 } : { opacity: 1, y: 0, rotateX: 0 }}
+            transition={{
+                duration: isMobile ? 0.3 : 0.6,
+                delay: isMobile ? delay * 0.4 : delay,
+                type: isMobile ? 'tween' : 'spring',
+                stiffness: 100
             }}
+            style={{ height: '100%' }}
         >
-            <CardContent sx={{ position: 'relative', zIndex: 1, p: { xs: 1.5, sm: 2 } }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: { xs: 1, sm: 2 } }}>
-                    <motion.div
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                        transition={{ type: 'spring', stiffness: 400 }}
-                    >
-                        <Box
-                            sx={{
-                                bgcolor: `${color}25`,
-                                borderRadius: { xs: 1.5, sm: 2.5 },
-                                p: { xs: 0.5, sm: 1.5 },
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                boxShadow: `0 4px 16px ${color}40`,
-                                border: `1px solid ${color}30`,
-                            }}
-                        >
-                            {icon}
-                        </Box>
-                    </motion.div>
-                    {trend && (
+            <Card
+                sx={{
+                    height: '100%',
+                    background: `linear-gradient(135deg, ${color}20 0%, ${color}08 100%)`,
+                    backdropFilter: isMobile ? 'none' : 'blur(20px)',
+                    border: `1px solid ${color}40`,
+                    borderRadius: 3,
+                    transformStyle: isMobile ? 'flat' : 'preserve-3d',
+                    transform: isMobile ? 'none' : 'perspective(1000px) rotateX(2deg) rotateY(2deg) translateZ(10px)',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    boxShadow: isMobile ? 'none' : `0 8px 32px rgba(0, 0, 0, 0.3), 0 2px 8px ${color}30`,
+                    '&::before': isMobile ? {} : {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: `radial-gradient(circle at top right, ${color}15, transparent 70%)`,
+                        pointerEvents: 'none',
+                    },
+                    '&:hover': isMobile ? {} : {
+                        transform: 'perspective(1000px) rotateX(-5deg) rotateY(-5deg) translateZ(30px) scale(1.02)',
+                        boxShadow: `0 20px 60px rgba(0, 0, 0, 0.4), 0 8px 24px ${color}50`,
+                        border: `1px solid ${color}60`,
+                    },
+                }}
+            >
+                <CardContent sx={{ position: 'relative', zIndex: 1, p: { xs: 1.5, sm: 2 } }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: { xs: 1, sm: 2 } }}>
                         <motion.div
-                            animate={{
-                                y: [0, -3, 0],
-                            }}
-                            transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: 'easeInOut'
-                            }}
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                            transition={{ type: 'spring', stiffness: 400 }}
                         >
-                            <Box sx={{ display: 'flex', alignItems: 'center', color }}>
-                                {trend > 0 ? <TrendingUp /> : <TrendingDown />}
+                            <Box
+                                sx={{
+                                    bgcolor: `${color}25`,
+                                    borderRadius: { xs: 1.5, sm: 2.5 },
+                                    p: { xs: 0.5, sm: 1.5 },
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    boxShadow: `0 4px 16px ${color}40`,
+                                    border: `1px solid ${color}30`,
+                                }}
+                            >
+                                {icon}
                             </Box>
                         </motion.div>
-                    )}
-                </Box>
-                <Typography
-                    variant="h4"
-                    sx={{
-                        fontWeight: 700,
-                        mb: 0.5,
-                        fontSize: { xs: '0.8rem', sm: '1.75rem', md: '2.125rem' },
-                        background: `linear-gradient(135deg, ${color}, ${color}dd)`,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        lineHeight: { xs: 1.2, sm: 1.5 },
-                    }}
-                >
-                    {value}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500, fontSize: { xs: '0.55rem', sm: '0.875rem' }, lineHeight: 1.1 }}>
-                    {title}
-                </Typography>
-            </CardContent>
-        </Card>
-    </motion.div>
-));
+                        {trend !== null && trend !== undefined && (
+                            <motion.div
+                                animate={isMobile ? {} : {
+                                    y: [0, -3, 0],
+                                }}
+                                transition={isMobile ? {} : {
+                                    duration: 2,
+                                    repeat: Infinity,
+                                    ease: 'easeInOut'
+                                }}
+                            >
+                                <Box sx={{ display: 'flex', alignItems: 'center', color }}>
+                                    {trend > 0 ? <TrendingUp /> : <TrendingDown />}
+                                </Box>
+                            </motion.div>
+                        )}
+                    </Box>
+                    <Typography
+                        variant="h4"
+                        sx={{
+                            fontWeight: 700,
+                            mb: 0.5,
+                            fontSize: { xs: '0.8rem', sm: '1.75rem', md: '2.125rem' },
+                            background: `linear-gradient(135deg, ${color}, ${color}dd)`,
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                            lineHeight: { xs: 1.2, sm: 1.5 },
+                        }}
+                    >
+                        {value}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500, fontSize: { xs: '0.55rem', sm: '0.875rem' }, lineHeight: 1.1 }}>
+                        {title}
+                    </Typography>
+                </CardContent>
+            </Card>
+        </motion.div>
+    );
+});
 
 const CardSkeleton = () => (
     <Card
@@ -159,6 +165,7 @@ const ChartSkeleton = ({ height = 300 }) => (
 
 const Dashboard = () => {
     const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [loading, setLoading] = useState(true);
     const [summary, setSummary] = useState(null);
     const [trend, setTrend] = useState([]);
@@ -258,18 +265,18 @@ const Dashboard = () => {
                 {/* Spending Trend */}
                 <Grid item xs={6} lg={8}>
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
+                        initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                        animate={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                        transition={{ duration: isMobile ? 0.3 : 0.6, delay: isMobile ? 0.1 : 0.4 }}
                         style={{ height: '100%' }}
                     >
                         <Card
                             sx={{
                                 background: 'rgba(255, 255, 255, 0.03)',
-                                backdropFilter: 'blur(20px)',
+                                backdropFilter: isMobile ? 'none' : 'blur(20px)',
                                 border: '1px solid rgba(255, 255, 255, 0.1)',
                                 borderRadius: 3,
-                                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                                boxShadow: isMobile ? 'none' : '0 8px 32px rgba(0, 0, 0, 0.3)',
                                 height: '100%',
                             }}
                         >
@@ -337,18 +344,18 @@ const Dashboard = () => {
                 {/* Category Distribution */}
                 <Grid item xs={6} lg={4}>
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.5 }}
+                        initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                        animate={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                        transition={{ duration: isMobile ? 0.3 : 0.6, delay: isMobile ? 0.2 : 0.5 }}
                         style={{ height: '100%' }}
                     >
                         <Card
                             sx={{
                                 background: 'rgba(255, 255, 255, 0.03)',
-                                backdropFilter: 'blur(20px)',
+                                backdropFilter: isMobile ? 'none' : 'blur(20px)',
                                 border: '1px solid rgba(255, 255, 255, 0.1)',
                                 borderRadius: 3,
-                                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                                boxShadow: isMobile ? 'none' : '0 8px 32px rgba(0, 0, 0, 0.3)',
                                 height: '100%',
                             }}
                         >
@@ -435,17 +442,17 @@ const Dashboard = () => {
                 {/* Monthly Comparison */}
                 <Grid item xs={12}>
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.6 }}
+                        initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                        animate={isMobile ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                        transition={{ duration: isMobile ? 0.3 : 0.6, delay: isMobile ? 0.3 : 0.6 }}
                     >
                         <Card
                             sx={{
                                 background: 'rgba(255, 255, 255, 0.03)',
-                                backdropFilter: 'blur(20px)',
+                                backdropFilter: isMobile ? 'none' : 'blur(20px)',
                                 border: '1px solid rgba(255, 255, 255, 0.1)',
                                 borderRadius: 3,
-                                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                                boxShadow: isMobile ? 'none' : '0 8px 32px rgba(0, 0, 0, 0.3)',
                             }}
                         >
                             <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
