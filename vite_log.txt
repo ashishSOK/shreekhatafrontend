@@ -1,0 +1,94 @@
+
+> shreekhata-frontend@1.0.0 dev
+> vite
+
+
+  VITE v5.4.21  ready in 181 ms
+
+  ➜  Local:   http://localhost:5174/
+  ➜  Network: use --host to expose
+1:44:34 PM [vite] hmr update /src/index.css
+1:45:16 PM [vite] hmr update /src/pages/Dashboard.jsx
+1:47:01 PM [vite] hmr update /src/index.css
+1:49:54 PM [vite] hmr update /src/pages/Dashboard.jsx
+1:50:25 PM [vite] hmr update /src/index.css
+1:50:25 PM [vite] hmr update /src/pages/Dashboard.jsx
+1:52:56 PM [vite] hmr update /src/components/layout/MainLayout.jsx
+1:52:58 PM [vite] hmr update /src/pages/Dashboard.jsx
+1:54:28 PM [vite] hmr update /src/components/layout/MainLayout.jsx
+1:58:13 PM [vite] hmr update /src/pages/Dashboard.jsx
+1:59:37 PM [vite] hmr update /src/pages/Dashboard.jsx
+2:01:55 PM [vite] hmr update /src/pages/Dashboard.jsx
+2:02:00 PM [vite] hmr update /src/pages/Dashboard.jsx
+2:04:24 PM [vite] hmr update /src/pages/Dashboard.jsx
+2:06:25 PM [vite] hmr update /src/pages/Dashboard.jsx
+2:11:10 PM [vite] hmr update /src/pages/Dashboard.jsx
+3:11:23 PM [vite] hmr update /src/pages/Dashboard.jsx
+3:17:26 PM [vite] hmr update /src/pages/Ledger.jsx
+3:22:46 PM [vite] hmr update /src/index.css
+3:32:20 PM [vite] hmr update /src/pages/Ledger.jsx
+3:32:22 PM [vite] hmr update /src/pages/Ledger.jsx
+3:33:37 PM [vite] hmr update /src/pages/Ledger.jsx
+3:34:50 PM [vite] hmr update /src/pages/Ledger.jsx
+3:37:04 PM [vite] hmr update /src/pages/Dashboard.jsx
+3:37:28 PM [vite] hmr update /src/pages/Dashboard.jsx
+3:37:33 PM [vite] hmr update /src/pages/Ledger.jsx
+3:38:21 PM [vite] hmr update /src/pages/Ledger.jsx
+3:44:31 PM [vite] hmr update /src/pages/Ledger.jsx
+3:44:31 PM [vite] Internal server error: /Users/ashish/Desktop/ShreeKhata/frontend/src/pages/Ledger.jsx: Missing semicolon. (190:9)
+
+  188 |             // Load transactions silently to allow Framer Motion animations to play
+  189 |             loadTransactions(true);
+> 190 |         } catch (error) {
+      |          ^
+  191 |             console.error('Error saving transaction:', error);
+  192 |             setError('Failed to save transaction');
+  193 |             setLoading(false); // Only set loading false on error since we didn't set it true 
+  Plugin: vite:react-babel
+  File: /Users/ashish/Desktop/ShreeKhata/frontend/src/pages/Ledger.jsx:190:9
+  188|              // Load transactions silently to allow Framer Motion animations to play
+  189|              loadTransactions(true);
+  190|          } catch (error) {
+     |           ^
+  191|              console.error('Error saving transaction:', error);
+  192|              setError('Failed to save transaction');
+      at constructor (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:365:19)
+      at JSXParserMixin.raise (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:6599:19)
+      at JSXParserMixin.semicolon (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:6895:10)
+      at JSXParserMixin.parseVarStatement (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:13231:10)
+      at JSXParserMixin.parseStatementContent (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:12851:23)
+      at JSXParserMixin.parseStatementLike (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:12767:17)
+      at JSXParserMixin.parseModuleItem (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:12744:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:13316:36)
+      at JSXParserMixin.parseBlockBody (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:13309:10)
+      at JSXParserMixin.parseProgram (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:12622:10)
+      at JSXParserMixin.parseTopLevel (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:12612:25)
+      at JSXParserMixin.parse (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:14488:25)
+      at parse (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/parser/lib/index.js:14522:38)
+      at parser (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/core/lib/parser/index.js:41:34)
+      at parser.next (<anonymous>)
+      at normalizeFile (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)
+      at normalizeFile.next (<anonymous>)
+      at run (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/core/lib/transformation/index.js:22:50)
+      at run.next (<anonymous>)
+      at transform (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/core/lib/transform.js:22:33)
+      at transform.next (<anonymous>)
+      at step (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/gensync/index.js:261:32)
+      at /Users/ashish/Desktop/ShreeKhata/frontend/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/gensync/index.js:223:11)
+      at /Users/ashish/Desktop/ShreeKhata/frontend/node_modules/gensync/index.js:189:28
+      at /Users/ashish/Desktop/ShreeKhata/frontend/node_modules/@babel/core/lib/gensync-utils/async.js:67:7
+      at /Users/ashish/Desktop/ShreeKhata/frontend/node_modules/gensync/index.js:113:33
+      at step (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/gensync/index.js:287:14)
+      at /Users/ashish/Desktop/ShreeKhata/frontend/node_modules/gensync/index.js:273:13
+      at async.call.result.err.err (/Users/ashish/Desktop/ShreeKhata/frontend/node_modules/gensync/index.js:223:11)
+3:44:38 PM [vite] hmr update /src/pages/Ledger.jsx
+3:45:48 PM [vite] hmr update /src/pages/Ledger.jsx
+3:47:35 PM [vite] hmr update /src/pages/Ledger.jsx
+3:49:36 PM [vite] hmr update /src/pages/Ledger.jsx
+3:49:58 PM [vite] hmr update /src/pages/Ledger.jsx
+3:50:30 PM [vite] hmr update /src/pages/Ledger.jsx
+3:51:31 PM [vite] hmr update /src/pages/Ledger.jsx
+3:53:24 PM [vite] hmr update /src/pages/Dashboard.jsx
+3:54:31 PM [vite] hmr update /src/pages/Dashboard.jsx
+3:55:34 PM [vite] hmr update /src/pages/Dashboard.jsx
