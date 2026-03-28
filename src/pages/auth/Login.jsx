@@ -261,15 +261,16 @@ const Login = () => {
                                 disabled={loading}
                                 sx={{
                                     py: 2,
-                                    background: 'linear-gradient(135deg, #14B8A6 0%, #10B981 100%)',
+                                    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #14b8a6 100%)',
                                     textTransform: 'none',
                                     fontWeight: 700,
                                     fontSize: '1rem',
                                     borderRadius: 3,
-                                    boxShadow: '0 10px 30px rgba(20, 184, 166, 0.3)',
+                                    boxShadow: '0 10px 30px rgba(139, 92, 246, 0.35)',
                                     '&:hover': {
-                                        background: 'linear-gradient(135deg, #0D9488 0%, #059669 100%)',
-                                        boxShadow: '0 15px 35px rgba(20, 184, 166, 0.4)',
+                                        background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #0d9488 100%)',
+                                        boxShadow: '0 15px 35px rgba(139, 92, 246, 0.5)',
+                                        transform: 'translateY(-1px)',
                                     },
                                     '&:disabled': {
                                         background: '#CBD5E1',

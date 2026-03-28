@@ -69,7 +69,7 @@ export default function Welcome() {
         <div style={{
             minHeight: '100vh',
             background: theme.bg,
-            fontFamily: "'Space Grotesk', 'DM Sans', 'Inter', sans-serif",
+            fontFamily: "'Inter', 'Poppins', -apple-system, sans-serif",
             color: theme.textPrimary,
             display: 'flex',
             flexDirection: 'column',
@@ -79,8 +79,6 @@ export default function Welcome() {
 
             {/* ─── GLOBAL OVERRIDES ─── */}
             <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
                 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
                 html, body { overflow-x: hidden !important; max-width: 100% !important; }
 
@@ -207,9 +205,10 @@ export default function Welcome() {
                 /* ─── Gradient headline ─── */
                 .hero-headline {
                     font-size: clamp(2.1rem, 5vw, 3.4rem);
-                    font-weight: 700;
+                    font-weight: 800;
                     line-height: 1.16;
                     letter-spacing: -0.03em;
+                    font-family: 'Poppins', 'Inter', sans-serif;
                     color: ${theme.textPrimary};
                 }
                 .hero-headline .accent {
