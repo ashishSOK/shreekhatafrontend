@@ -74,6 +74,7 @@ export default function Welcome() {
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
+            overflowX: 'hidden',
         }}>
 
             {/* ─── GLOBAL OVERRIDES ─── */}
@@ -81,6 +82,7 @@ export default function Welcome() {
                 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
                 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+                html, body { overflow-x: hidden !important; max-width: 100% !important; }
 
                 /* ─── Grid mesh background ─── */
                 .mesh-bg::before {
@@ -108,13 +110,13 @@ export default function Welcome() {
                 .blob-2 {
                     width: 300px; height: 300px;
                     background: radial-gradient(ellipse, ${theme.blob2}, transparent 70%);
-                    bottom: -60px; right: -40px;
+                    bottom: -60px; right: 0;
                     animation: drift2 7s ease-in-out infinite alternate;
                 }
                 .blob-3 {
                     width: 220px; height: 220px;
                     background: radial-gradient(ellipse, ${theme.blob3}, transparent 70%);
-                    bottom: 60px; left: -40px;
+                    bottom: 60px; left: 0;
                     animation: drift2 9s ease-in-out infinite alternate-reverse;
                 }
 
@@ -124,7 +126,7 @@ export default function Welcome() {
                 }
                 @keyframes drift2 {
                     from { transform: translate(0, 0); }
-                    to   { transform: translate(-20px, -20px); }
+                    to   { transform: translate(0px, -20px); }
                 }
 
                 /* ─── Navbar ─── */
@@ -263,9 +265,17 @@ export default function Welcome() {
 
                 /* ─── Responsive ─── */
                 @media (max-width: 640px) {
+                    /* Kill horizontal scroll */
+                    html, body, #root { overflow-x: hidden !important; max-width: 100vw !important; }
+
+                    /* Contain blobs so they don't bleed */
+                    .blob-1 { width: 300px !important; height: 300px !important; }
+                    .blob-2 { width: 160px !important; height: 160px !important; right: 0 !important; }
+                    .blob-3 { width: 130px !important; height: 130px !important; left: 0 !important; }
+
                     /* Nav — compact */
                     .sk-nav { padding: 10px 14px; }
-                    .nav-actions .btn-ghost { display: none !important; } /* Hide Log in from top nav to pull Get Started left */
+                    .nav-actions .btn-ghost { display: none !important; }
                     .sk-nav .btn-primary { padding: 8px 14px; font-size: 13px; margin-left: auto; }
 
                     /* Hero — compress vertical space */
